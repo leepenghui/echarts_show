@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>setInterval</title>
+    <script src="../static/js/echarts.min.js"></script>
+</head>
+
+<body>
+
+    <p>显示当前时间:</p>
+    <p id="demo"></p>
+    <div id="main" style="width: 50%; height:400px; float:left"></div>
+    <div id="main1" style="width: 50%; height:400px; margin-left:50%"></div>
+
+    <button onclick="myStopFunction()">停止时间</button>
+
+    <script>
+        var chartDom1 = document.getElementById('main1');
+        var myChart1 = echarts.init(chartDom1);
+        var myVar = setInterval(function () { myTimer(myChart1) }, 200);
+
+        function myStopFunction() {
+            clearInterval(myVar);
+        }
+
+        function myTimer(myChart1) {
+            var d = new Date();
+            var t = d.toLocaleTimeString();
+            document.getElementById("demo").innerHTML = t;
+
+            var chartDom = document.getElementById('main');
+            var option;
+
+            option = {
+                xAxis: {
+                    type: 'category',
+                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                        data: [
+                            Math.round(Math.random() * 2000),
+                            Math.round(Math.random() * 2000),
+                            Math.round(Math.random() * 2000),
+                            Math.round(Math.random() * 2000),
+                            Math.round(Math.random() * 2000),
+                            Math.round(Math.random() * 2000),
+                            Math.round(Math.random() * 2000),
+                        ],
+                        type: 'bar',
+                        showBackground: true,
+                        backgroundStyle: {
+                            color: 'rgba(180, 180, 180, 0.2)'
+                        }
+                    }
+                ]
+            };
+
+            var myChart = echarts.init(chartDom, 'dark');
+            // var myChart1 = echarts.init(chartDom1);
+            option && myChart.setOption(option);
+            option && myChart1.setOption(option);
+        }
+    </script>
+
+</body>
+
+</html>
